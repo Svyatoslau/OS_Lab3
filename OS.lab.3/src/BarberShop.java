@@ -22,4 +22,8 @@ public class BarberShop {
     public boolean isFull() {
         return numberOfVisitors >= MAX_VISITORS;
     }
+
+    public boolean isEmpty() {
+        return numberOfVisitors == 0;
+    }
 }
