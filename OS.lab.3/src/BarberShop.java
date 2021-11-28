@@ -1,4 +1,8 @@
+import java.util.ArrayDeque;
+
 public class BarberShop {
+
+    private ArrayDeque<Customer> Queue = new ArrayDeque<Customer>();
 
     private int MAX_VISITORS = 5;
     private int numberOfVisitors = 5;
@@ -25,5 +29,11 @@ public class BarberShop {
 
     public boolean isEmpty() {
         return numberOfVisitors == 0;
+    }
+
+    synchronized public void push(Customer customer) {
+        if (!isFull()) {
+            Queue.addLast(customer);
+        } else System.out.println("Ой не успел");
     }
 }

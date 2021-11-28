@@ -19,7 +19,7 @@ public class Customer implements Runnable{
                 System.out.println("МЕСТ больше НЕТ!!!");
             }else{
                 System.out.println("Клиент стал в очередь");
-                barberShop.seatInQ(this);
+                barberShop.push(this);
             }
         }
     }
