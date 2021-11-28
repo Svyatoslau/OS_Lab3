@@ -3,6 +3,11 @@ public class Customer implements Runnable{
     private Barber barber;
     private BarberShop barberShop;
 
+    private Thread thread = new Thread(this);
+
+    public Thread getThread() {
+        return thread;
+    }
 
     public Customer(Barber barber, BarberShop barberShop) {
         this.barber = barber;
@@ -11,8 +16,8 @@ public class Customer implements Runnable{
 
     @Override
     public void run() {
-        if(barber.isSleeping()){
-            barber.wakeup();
+        if(barberShop.getBarberTread().getState() == Thread.State.WAITING){
+            barberShop.wakeup();
             System.out.println("Парихмехер проснулся!!!!");
         }else{
             if(barberShop.isFull()) {

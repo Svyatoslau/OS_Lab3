@@ -4,12 +4,16 @@ public class Barber implements Runnable {
 
     private Customer customer;
 
-    private Thread thisThread = new Thread(this);
+    private Thread thread = new Thread(this);
 
     private BarberShop barberShop;
 
     public boolean isSleeping() {
         return sleeping;
+    }
+
+    public Thread getThread() {
+        return thread;
     }
 
     public void setSleeping(boolean sleeping) {
@@ -20,7 +24,7 @@ public class Barber implements Runnable {
     public Barber(BarberShop barberShop) {
         this.barberShop = barberShop;
         this.sleeping = true;
-        this.thisThread.start();
+        this.thread.start();
     }
 
 
@@ -37,7 +41,7 @@ public class Barber implements Runnable {
                 System.out.println("Посетителей в очереди: " + barberShop.getNumberOfVisitors());
 
                 try {
-                    thisThread.sleep(1000);
+                    thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -46,6 +50,11 @@ public class Barber implements Runnable {
 
             } else {
                 setSleeping(true);
+                try {
+                    thread.join();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

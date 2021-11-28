@@ -7,6 +7,17 @@ public class BarberShop {
     private int MAX_VISITORS = 5;
     private int numberOfVisitors = 5;
 
+
+    private Thread barberTread;
+
+    public Thread getBarberTread() {
+        return barberTread;
+    }
+
+    public BarberShop(Barber barber) {
+        this.barberTread = barber.getThread();
+    }
+
     public int getMAX_VISITORS() {
         return MAX_VISITORS;
     }
@@ -34,8 +45,20 @@ public class BarberShop {
     synchronized public void push(Customer customer) {
         if (!isFull()) {
             Queue.addLast(customer);
+            try {
+                customer.getThread().join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         } else System.out.println("Ой не успел");
     }
 
+    synchronized public void wakeup(){
+        barberTread.notify();
+    }
+
+    synchronized public Customer pop(){
+        return Queue.pop();
+    }
 
 }
