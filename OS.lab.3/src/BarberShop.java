@@ -36,4 +36,6 @@ public class BarberShop {
             Queue.addLast(customer);
         } else System.out.println("Ой не успел");
     }
+
+
 }
